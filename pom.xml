@@ -167,6 +167,7 @@
             <version>${powsybl-network-area-diagram.version}</version>
         </dependency>
 
+        <!-- logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
