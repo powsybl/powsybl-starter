@@ -20,7 +20,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 
 
 
-Create a IEEE 14 buses, run an AC load flow with default parameters, print calculation status and buses voltage magnitude:
+Create an IEEE 14 buses, run an AC load flow with default parameters, print calculation status and buses voltage magnitude:
 
 ```java
 Network network = IeeeCdfNetworkFactory.create14();
@@ -31,7 +31,7 @@ network.getBusView().getBusStream().forEach(bus -> System.out.println(bus.getId(
 
 
 
-Run a DC load flow instead of an AC:
+Run a DC load flow instead of an AC one:
 
 ```java
 Network network = IeeeCdfNetworkFactory.create14();
@@ -52,7 +52,7 @@ SingleLineDiagram.draw(network, "VL8", "vl8.svg");
 
  
 
-Load a UCTE file, run an AC load flow and generate an full network diagram:
+Load a UCTE file, run an AC load flow and generate a full network diagram:
 
 ```java
 Network network = Importers.loadNetwork("simple-eu.uct");
@@ -83,7 +83,7 @@ LoadFlow.run(networkBe);
 
 
 
-Load a UCTE file and run a DC sensivity analysis of all generator active power injection on all branches active power flow for the pre-contingency state and for all N-1 line post-contingency states.
+Load a UCTE file and run a DC sensivity analysis of all generators active power injection on all branches active power flow for the pre-contingency state and for all N-1 line post-contingency states.
 
 ```java
 Network network = Importers.loadNetwork("simple-eu.uct");
