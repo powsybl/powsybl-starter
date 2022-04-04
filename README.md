@@ -2,6 +2,14 @@
 
 
 
+PowSyBl repositories versions:
+
+| powsybl-starter | powsybl-core | powsybl-open-loadflow | powsybl-single-line-diagram | powsybl-network-area-diagram |
+| --------------- | ------------ | --------------------- | --------------------------- | ---------------------------- |
+| 1.0.0           | 4.7.0        | 0.19.0                | 2.9.1                       | 0.3.0                        |
+
+
+
 ## Getting started
 
 To start using PowSyBl components in a Maven project, you just have to include one dependency:
