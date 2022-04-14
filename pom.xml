@@ -46,10 +46,7 @@
         <logback.version>1.2.10</logback.version>
         <slf4j.version>1.7.22</slf4j.version>
 
-        <powsybl-core.version>4.7.0</powsybl-core.version>
-        <powsybl-open-loadflow.version>0.19.0</powsybl-open-loadflow.version>
-        <powsybl-single-line-diagram.version>2.9.1</powsybl-single-line-diagram.version>
-        <powsybl-network-area-diagram.version>0.3.0</powsybl-network-area-diagram.version>
+        <powsybl-dependencies.version>1.0.0-SNAPSHOT</powsybl-dependencies.version>
     </properties>
 
     <profiles>
@@ -83,8 +80,8 @@
         <dependencies>
             <dependency>
                 <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-core</artifactId>
-                <version>${powsybl-core.version}</version>
+                <artifactId>powsybl-dependencies</artifactId>
+                <version>${powsybl-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -106,6 +103,10 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-reducer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-test</artifactId>
         </dependency>
 
         <!-- network import/export -->
@@ -150,21 +151,18 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-open-loadflow</artifactId>
-            <version>${powsybl-open-loadflow.version}</version>
         </dependency>
 
         <!-- single line diagram -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
-            <version>${powsybl-single-line-diagram.version}</version>
         </dependency>
 
         <!-- network area diagram -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-network-area-diagram</artifactId>
-            <version>${powsybl-network-area-diagram.version}</version>
         </dependency>
 
         <!-- logging -->
