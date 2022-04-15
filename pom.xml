@@ -49,33 +49,6 @@
         <powsybl-dependencies.version>1.0.0-SNAPSHOT</powsybl-dependencies.version>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>javadoc-aggregate-jar</id>
-                                <phase>package</phase>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>aggregate-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
