@@ -20,7 +20,7 @@
     </parent>
 
     <artifactId>powsybl-starter</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
 
     <name>PowSyBl Starter POM</name>
     <description>A starter POM to help creating a PowSyBl based application faster</description>
@@ -42,10 +42,7 @@
     </developers>
 
     <properties>
-        <logback.version>1.2.10</logback.version>
-        <slf4j.version>1.7.22</slf4j.version>
-
-        <powsybl-dependencies.version>1.1.0</powsybl-dependencies.version>
+        <powsybl-dependencies.version>1.2.0</powsybl-dependencies.version>
     </properties>
 
     <dependencyManagement>
@@ -141,12 +138,10 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 </project>
