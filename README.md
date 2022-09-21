@@ -2,8 +2,8 @@
 
 
 
-PowSyBl repository versions for the 1.2.0 powsybl-starter release correspond to the ones of
-[powsybl-dependencies 1.2.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v1.2.0).
+PowSyBl repository versions for the 1.3.0 powsybl-starter release correspond to the ones of
+[powsybl-dependencies 1.3.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v1.3.0).
 
 
 
@@ -15,7 +15,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-starter</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -95,7 +95,7 @@ Network network = Importers.loadNetwork("simple-eu.uct");
 List<SensitivityFactor> factors = new ArrayList<>();
 for (Generator g : network.getGenerators()) {
     for (Line l : network.getLines()) {
-        factors.add(new SensitivityFactor(SensitivityFunctionType.BRANCH_ACTIVE_POWER, l.getId(),
+        factors.add(new SensitivityFactor(SensitivityFunctionType.BRANCH_ACTIVE_POWER_1, l.getId(),
                                           SensitivityVariableType.INJECTION_ACTIVE_POWER, g.getId(),
                                           false, ContingencyContext.all()));
     }
