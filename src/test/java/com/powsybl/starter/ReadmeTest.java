@@ -3,7 +3,6 @@ package com.powsybl.starter;
 import com.powsybl.contingency.Contingency;
 import com.powsybl.contingency.ContingencyContext;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
-import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
@@ -42,36 +41,36 @@ class ReadmeTest {
 
     @Test
     void testExample3() {
-        Network network = Importers.loadNetwork("IEEE_118_bus.raw");
+        Network network = Network.read("IEEE_118_bus.raw", getClass().getResourceAsStream("/IEEE_118_bus.raw"));
         LoadFlow.run(network);
-        SingleLineDiagram.draw(network, "VL8", "vl8.svg");
+        SingleLineDiagram.draw(network, "VL7", "vl8.svg");
     }
 
     @Test
     void testExample4() {
-        Network network = Importers.loadNetwork("simple-eu.uct");
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         LoadFlow.run(network);
         new NetworkAreaDiagram(network).draw(Paths.get("simple-eu.svg"));
     }
 
     @Test
     void testExample5() {
-        Network network = Importers.loadNetwork("simple-eu.uct");
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).collect(Collectors.toList());
         SecurityAnalysisResult result = SecurityAnalysis.run(network, contingencies).getResult();
     }
 
     @Test
     void testExample6() {
-        Network networkBe = Importers.loadNetwork("CGMES_v2_4_15_MicroGridTestConfiguration_BC_BE_v2.zip");
-        Network networkNl = Importers.loadNetwork("CGMES_v2_4_15_MicroGridTestConfiguration_BC_NL_v2.zip");
-        networkBe.merge(networkNl);
+        Network networkBe = Network.read("src/test/resources/CGMES_v2_4_15_MicroGridTestConfiguration_BC_BE_v2.zip");
+        Network networkNl = Network.read("src/test/resources/CGMES_v2_4_15_MicroGridTestConfiguration_BC_NL_v2.zip");
+        networkNl.merge(networkBe);
         LoadFlow.run(networkBe);
     }
 
     @Test
     void testExample7() {
-        Network network = Importers.loadNetwork("simple-eu.uct");
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         List<SensitivityFactor> factors = new ArrayList<>();
         for (Generator g : network.getGenerators()) {
             for (Line l : network.getLines()) {
