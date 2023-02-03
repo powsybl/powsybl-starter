@@ -42,7 +42,7 @@
     </developers>
 
     <properties>
-        <powsybl-dependencies.version>2022.0.0</powsybl-dependencies.version>
+        <powsybl-dependencies.version>2023.0.0</powsybl-dependencies.version>
     </properties>
 
     <dependencyManagement>
