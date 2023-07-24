@@ -20,7 +20,7 @@
     </parent>
 
     <artifactId>powsybl-starter</artifactId>
-    <version>2023.2.1</version>
+    <version>2023.2.4</version>
 
     <name>PowSyBl Starter POM</name>
     <description>A starter POM to help creating a PowSyBl based application faster</description>
@@ -42,7 +42,7 @@
     </developers>
 
     <properties>
-        <powsybl-dependencies.version>2023.2.1</powsybl-dependencies.version>
+        <powsybl-dependencies.version>2023.2.4</powsybl-dependencies.version>
     </properties>
 
     <dependencyManagement>
