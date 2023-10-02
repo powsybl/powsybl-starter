@@ -2,8 +2,8 @@
 
 
 
-PowSyBl repository versions for the 2023.2.4 powsybl-starter release correspond to the ones of
-[powsybl-dependencies 2023.2.4](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2023.2.4).
+PowSyBl repository versions for the 2023.3.0 powsybl-starter release correspond to the ones of
+[powsybl-dependencies 2023.3.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2023.3.0).
 
 
 
@@ -15,7 +15,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-starter</artifactId>
-    <version>2023.2.4</version>
+    <version>2023.3.0</version>
 </dependency>
 ```
 
@@ -62,7 +62,7 @@ Load a UCTE file, run an AC load flow and generate a full network diagram:
 ```java
 Network network = Network.read("simple-eu.uct");
 LoadFlow.run(network);
-new NetworkAreaDiagram(network).draw(Paths.get("simple-eu.svg"));
+NetworkAreaDiagram.draw(network, Path.of("simple-eu.svg"));
 ```
 
 
@@ -82,8 +82,8 @@ Load 2 CGMES files, merge both networks and run a load flow on merged network:
 ```java
 Network networkBe = Network.read("CGMES_v2_4_15_MicroGridTestConfiguration_BC_BE_v2.zip");
 Network networkNl = Network.read("CGMES_v2_4_15_MicroGridTestConfiguration_BC_NL_v2.zip");
-networkBe.merge(networkNl);
-LoadFlow.run(networkBe);
+Network merged = Network.merge("mergedBeNl", networkNl, networkBe);
+LoadFlow.run(merged);
 ```
 
 
