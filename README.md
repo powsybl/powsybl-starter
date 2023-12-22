@@ -15,7 +15,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-starter</artifactId>
-    <version>2023.3.3</version>
+    <version>2023.4.0</version>
 </dependency>
 ```
 
