@@ -20,7 +20,7 @@
     </parent>
 
     <artifactId>powsybl-starter</artifactId>
-    <version>2025.0.2-SNAPSHOT</version>
+    <version>2025.0.2</version>
 
     <name>PowSyBl Starter POM</name>
     <description>A starter POM to help creating a PowSyBl based application faster</description>
