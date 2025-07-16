@@ -15,12 +15,12 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-parent</artifactId>
-        <version>15</version>
+        <version>20.2</version>
         <relativePath/>
     </parent>
 
     <artifactId>powsybl-starter</artifactId>
-    <version>2025.1.0-SNAPSHOT</version>
+    <version>2025.1.0</version>
 
     <name>PowSyBl Starter POM</name>
     <description>A starter POM to help creating a PowSyBl based application faster</description>
@@ -42,7 +42,7 @@
     </developers>
 
     <properties>
-        <powsybl-dependencies.version>2025.0.2</powsybl-dependencies.version>
+        <powsybl-dependencies.version>2025.1.0</powsybl-dependencies.version>
     </properties>
 
     <dependencyManagement>
