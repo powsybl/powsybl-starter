@@ -2,8 +2,8 @@
 
 
 
-PowSyBl repository versions for the 2025.1.0 powsybl-starter release correspond to the ones of
-[powsybl-dependencies 2025.1.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2025.1.0).
+PowSyBl repository versions for the 2025.2.0 powsybl-starter release correspond to the ones of
+[powsybl-dependencies 2025.2.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2025.2.0).
 
 
 
@@ -15,7 +15,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-starter</artifactId>
-    <version>2025.1.0</version>
+    <version>2025.2.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ Create an IEEE 14 buses, run an AC load flow with default parameters, print calc
 ```java
 Network network = IeeeCdfNetworkFactory.create14();
 LoadFlowResult result = LoadFlow.run(network);
-System.out.println(result.getComponentResults().get(0).getStatus());
+System.out.println(result.getComponentResults().getFirst().getStatus());
 network.getBusView().getBusStream().forEach(bus -> System.out.println(bus.getId() + " " + bus.getV()));
 ```
 
@@ -103,6 +103,9 @@ for (Generator g : network.getGenerators()) {
 List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).collect(Collectors.toList());
 SensitivityAnalysisParameters parameters = new SensitivityAnalysisParameters();
 parameters.getLoadFlowParameters().setDc(true);
-SensitivityAnalysisResult result = SensitivityAnalysis.run(network, factors, contingencies, parameters);
+SensitivityAnalysisRunParameters runParameters = new SensitivityAnalysisRunParameters()
+        .setContingencies(contingencies)
+        .setParameters(parameters);
+SensitivityAnalysisResult result = SensitivityAnalysis.run(network, factors, runParameters);
 ```
 
