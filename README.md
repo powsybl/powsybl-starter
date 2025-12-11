@@ -2,8 +2,8 @@
 
 
 
-PowSyBl repository versions for the 2025.2.0 powsybl-starter release correspond to the ones of
-[powsybl-dependencies 2025.2.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2025.2.0).
+PowSyBl repository versions for the 2025.3.0 powsybl-starter release correspond to the ones of
+[powsybl-dependencies 2025.3.0](https://github.com/powsybl/powsybl-dependencies/releases/tag/v2025.3.0).
 
 
 
@@ -15,7 +15,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-starter</artifactId>
-    <version>2025.2.0</version>
+    <version>2025.3.0</version>
 </dependency>
 ```
 
