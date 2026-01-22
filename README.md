@@ -94,17 +94,17 @@ network.update(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO_SSH"));
 
 Import a CGMES model consisting of one EQ file (`20251211T0000Z_1D_TSO_EQ_000`) and four SSH files: 
 midnight (`20251211T0000Z_1D_TSO_SSH_000`), morning (`20251211T0800Z_1D_TSO_SSH_000`), afternoon (`20251211T1600Z_1D_TSO_SSH_000`), and end of day (`20251211T2400Z_1D_TSO_SSH_000`). 
-The midnight SSH file is complete and contains data for all equipment, while the remaining SSH files are incremental, including only changes relative to the previous SSH file. 
+The midnight SSH file is complete and contains data for all equipment, while the remaining SSH files are partial, including only changes relative to the previous SSH file. 
 The entire process is carried out in four steps, using a single variant:
 
 ```java
 Path pathFile = Paths.get("/path/to/cgmes_model");
 
 // Import the midnight EQ and SSH files
-Path pathFile = Paths.get("/work/tmp/cgmes_update/incremental");
+Path pathFile = Paths.get("/work/tmp/cgmes_update/partial");
 Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO"));
 
-// Use previous values to fill in missing data in the incremental SSH files using previous values
+// Use previous values to fill in missing data in the partial SSH files using previous values
 Properties properties = new Properties();
 properties.put("iidm.import.cgmes.use-previous-values-during-update", "true");
 
