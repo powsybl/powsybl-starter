@@ -75,7 +75,75 @@ List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.l
 SecurityAnalysisResult result = SecurityAnalysis.run(network, contingencies).getResult();
 ```
 
+Import a CGMES model in a single step. 
+The model is defined by the files `20251211T0000Z_1D_TSO_EQ_000`  and `20251211T0000Z_1D_TSO_SSH_000`:
 
+```java
+Path pathFile = Paths.get("/path/to/cgmes_model");
+Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO"));
+```
+
+Import a CGMES model in two steps: first, import only the EQ file, and then update the model by reading the SSH file. 
+The model is defined by the files `20251211T0000Z_1D_TSO_EQ_000`  and `20251211T0000Z_1D_TSO_SSH_000`:
+
+```java
+Path pathFile = Paths.get("/path/to/cgmes_model");
+Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO_EQ"));
+network.update(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO_SSH"));
+```
+
+Import a CGMES model consisting of one EQ file (`20251211T0000Z_1D_TSO_EQ_000`) and four SSH files: 
+midnight (`20251211T0000Z_1D_TSO_SSH_000`), morning (`20251211T0800Z_1D_TSO_SSH_000`), afternoon (`20251211T1600Z_1D_TSO_SSH_000`), and end of day (`20251211T2400Z_1D_TSO_SSH_000`). 
+The midnight SSH file is complete and contains data for all equipment, while the remaining SSH files are partial, including only changes relative to the previous SSH file. 
+The entire process is carried out in four steps, using a single variant:
+
+```java
+Path pathFile = Paths.get("/path/to/cgmes_model");
+
+// Import the midnight EQ and SSH files
+Path pathFile = Paths.get("/work/tmp/cgmes_update/partial");
+Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO"));
+
+// Use previous values to fill in missing data in the partial SSH files using previous values
+Properties properties = new Properties();
+properties.put("iidm.import.cgmes.use-previous-values-during-update", "true");
+
+// Update the model by importing the morning SSH file
+network.update(new DirectoryDataSource(pathFile, "20251211T0800Z_1D_TSO_SSH"), properties);
+
+// Update the model by importing the afternoon SSH file
+network.update(new DirectoryDataSource(pathFile, "20251211T1600Z_1D_TSO_SSH"), properties);
+        
+// Update the model by importing the end of the day SSH file
+network.update(new DirectoryDataSource(pathFile, "20251211T2400Z_1D_TSO_SSH"), properties);
+```
+
+Import a CGMES model consisting of one EQ file (`20251210T0000Z_1D_TSO_EQ_000`) and four SSH files: midnight (`20251210T0000Z_1D_TSO_SSH_000`), morning (`20251210T0800Z_1D_TSO_SSH_000`), afternoon (`20251210T1600Z_1D_TSO_SSH_000`), and end of day (`20251210T2400Z_1D_TSO_SSH_000`). 
+All SSH files are complete and contain data for all equipment. 
+The entire process is carried out in four steps, using a separate variant for each SSH file:
+
+```java
+Path pathFile = Paths.get("/path/to/cgmes_model");
+
+// Import the midnight EQ and SSH files
+Path pathFile = Paths.get("/work/tmp/cgmes_update/variant");
+Network network = Network.read(new DirectoryDataSource(pathFile, "20251210T0000Z_1D_TSO"));
+
+// Update the model by importing the morning SSH file into a new variant
+network.getVariantManager().cloneVariant(network.getVariantManager().getWorkingVariantId(), "morning");
+network.getVariantManager().setWorkingVariant("morning");
+network.update(new DirectoryDataSource(pathFile, "20251210T0800Z_1D_TSO_SSH"));
+
+// Update the model by importing the afternoon SSH file into a new variant
+network.getVariantManager().cloneVariant(network.getVariantManager().getWorkingVariantId(), "afternoon");
+network.getVariantManager().setWorkingVariant("afternoon");
+network.update(new DirectoryDataSource(pathFile, "20251210T1600Z_1D_TSO_SSH"));
+
+// Update the model by importing the end of the day SSH file into a new variant
+network.getVariantManager().cloneVariant(network.getVariantManager().getWorkingVariantId(), "end-of-the-day");
+network.getVariantManager().setWorkingVariant("end-of-the-day");
+network.update(new DirectoryDataSource(pathFile, "20251210T2400Z_1D_TSO_SSH"));
+```
 
 Load 2 CGMES files, merge both networks and run a load flow on merged network:
 
