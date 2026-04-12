@@ -64,6 +64,12 @@
             <artifactId>powsybl-config-classic</artifactId>
         </dependency>
 
+        <!-- tools -->
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-tools</artifactId>
+        </dependency>
+
         <!-- network -->
         <dependency>
             <groupId>com.powsybl</groupId>
