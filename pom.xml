@@ -58,16 +58,26 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- platform config -->
+        <!-- platform config, tools, core APIs -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-config-classic</artifactId>
         </dependency>
-
-        <!-- tools -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-loadflow-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-security-analysis-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-sensitivity-analysis-api</artifactId>
         </dependency>
 
         <!-- network -->
