@@ -26,6 +26,7 @@ To start using PowSyBl components in a Maven project, you just have to include o
 
 Create an IEEE 14 buses, run an AC load flow with default parameters, print calculation status and buses voltage magnitude:
 
+<!-- ReadmeTest.testExample1() --> 
 ```java
 Network network = IeeeCdfNetworkFactory.create14();
 LoadFlowResult result = LoadFlow.run(network);
@@ -37,6 +38,7 @@ network.getBusView().getBusStream().forEach(bus -> System.out.println(bus.getId(
 
 Run a DC load flow instead of an AC one:
 
+<!-- ReadmeTest.testExample2() -->
 ```java
 Network network = IeeeCdfNetworkFactory.create14();
 LoadFlowParameters parameters = new LoadFlowParameters()
@@ -48,6 +50,7 @@ LoadFlow.run(network, parameters);
 
 Load a PSS/E raw file, run an AC load flow and generate a single line diagram for voltage level 'VL8':
 
+<!-- ReadmeTest.testExample3() -->
 ```java
 Network network = Network.read("IEEE_118_bus.raw");
 LoadFlow.run(network);
@@ -58,6 +61,7 @@ SingleLineDiagram.draw(network, "VL7", "vl7.svg");
 
 Load a UCTE file, run an AC load flow and generate a full network diagram:
 
+<!-- ReadmeTest.testExample4() -->
 ```java
 Network network = Network.read("simple-eu.uct");
 LoadFlow.run(network);
@@ -68,25 +72,29 @@ NetworkAreaDiagram.draw(network, Path.of("simple-eu.svg"));
 
 Load a UCTE file, run an AC security analysis with all N-1 line contingencies:
 
+<!-- ReadmeTest.testExample5() -->
 ```java
 Network network = Network.read("simple-eu.uct");
-List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).collect(Collectors.toList());
+List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).toList();
 SecurityAnalysisResult result = SecurityAnalysis.run(network, contingencies).getResult();
 ```
 
 Import a CGMES model in a single step. 
 The model is defined by the files `20251211T0000Z_1D_TSO_EQ_000`  and `20251211T0000Z_1D_TSO_SSH_000`:
 
+<!-- ReadmeTest.testCgmesImportAll() -->
+
 ```java
-Path pathFile = Paths.get("/path/to/cgmes_model");
+Path pathFile = Paths.get("/path/to/cgmes_model/simple");
 Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO"));
 ```
 
 Import a CGMES model in two steps: first, import only the EQ file, and then update the model by reading the SSH file. 
 The model is defined by the files `20251211T0000Z_1D_TSO_EQ_000`  and `20251211T0000Z_1D_TSO_SSH_000`:
 
+<!-- ReadmeTest.testCgmesImportEqThenSsh() -->
 ```java
-Path pathFile = Paths.get("/path/to/cgmes_model");
+Path pathFile = Paths.get("/path/to/cgmes_model/simple");
 Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO_EQ"));
 network.update(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO_SSH"));
 ```
@@ -96,11 +104,10 @@ midnight (`20251211T0000Z_1D_TSO_SSH_000`), morning (`20251211T0800Z_1D_TSO_SSH_
 The midnight SSH file is complete and contains data for all equipment, while the remaining SSH files are partial, including only changes relative to the previous SSH file. 
 The entire process is carried out in four steps, using a single variant:
 
+<!-- ReadmeTest.testCgmesPartialSshUpdate() -->
 ```java
-Path pathFile = Paths.get("/path/to/cgmes_model");
-
 // Import the midnight EQ and SSH files
-Path pathFile = Paths.get("/work/tmp/cgmes_update/partial");
+Path pathFile = Paths.get("/path/to/cgmes_model/partial");
 Network network = Network.read(new DirectoryDataSource(pathFile, "20251211T0000Z_1D_TSO"));
 
 // Use previous values to fill in missing data in the partial SSH files using previous values
@@ -121,11 +128,10 @@ Import a CGMES model consisting of one EQ file (`20251210T0000Z_1D_TSO_EQ_000`) 
 All SSH files are complete and contain data for all equipment. 
 The entire process is carried out in four steps, using a separate variant for each SSH file:
 
+<!-- ReadmeTest.testCgmesSshUpdateWithVariants() -->
 ```java
-Path pathFile = Paths.get("/path/to/cgmes_model");
-
 // Import the midnight EQ and SSH files
-Path pathFile = Paths.get("/work/tmp/cgmes_update/variant");
+Path pathFile = Paths.get("/path/to/cgmes_model/variant");
 Network network = Network.read(new DirectoryDataSource(pathFile, "20251210T0000Z_1D_TSO"));
 
 // Update the model by importing the morning SSH file into a new variant
@@ -146,9 +152,10 @@ network.update(new DirectoryDataSource(pathFile, "20251210T2400Z_1D_TSO_SSH"));
 
 Load 2 CGMES files, merge both networks and run a load flow on merged network:
 
+<!-- ReadmeTest.testExample6() -->
 ```java
-Network networkBe = Network.read("CGMES_v2_4_15_MicroGridTestConfiguration_BC_BE_v2.zip");
-Network networkNl = Network.read("CGMES_v2_4_15_MicroGridTestConfiguration_BC_NL_v2.zip");
+Network networkBe = Network.read("BE_with_EQ_BD.zip");
+Network networkNl = Network.read("NL_with_EQ_BD.zip");
 Network merged = Network.merge("mergedBeNl", networkNl, networkBe);
 LoadFlow.run(merged);
 ```
@@ -157,6 +164,7 @@ LoadFlow.run(merged);
 
 Load a UCTE file and run a DC sensivity analysis of all generators active power injection on all branches active power flow for the pre-contingency state and for all N-1 line post-contingency states.
 
+<!-- ReadmeTest.testExample7() -->
 ```java
 Network network = Network.read("simple-eu.uct");
 List<SensitivityFactor> factors = new ArrayList<>();
@@ -167,7 +175,7 @@ for (Generator g : network.getGenerators()) {
                                           false, ContingencyContext.all()));
     }
 }
-List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).collect(Collectors.toList());
+List<Contingency> contingencies = network.getLineStream().map(l -> Contingency.line(l.getId())).toList();
 SensitivityAnalysisParameters parameters = new SensitivityAnalysisParameters();
 parameters.getLoadFlowParameters().setDc(true);
 SensitivityAnalysisRunParameters runParameters = new SensitivityAnalysisRunParameters()
